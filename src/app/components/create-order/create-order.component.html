@@ -1,0 +1,43 @@
+<div>
+<form>
+    <div class="form-group">
+    <label for="productName">Select Product : </label> &nbsp;
+    <select (change)="filterProducts($event.target.value)">
+      <option value="0">-- All --</option>
+      <option *ngFor="let product of productName" value={{product}}>
+        {{product}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="orderedQuantity">Quantity : </label>
+    <input type="text" class="form-control" id="orderedQuantity" name="orderedQuantity" [(ngModel)]="orderedQuantity" required>
+  </div>
+  <div class="form-group">
+    <button type="submit" clas="btn btn-success" (click)="createOrder()">Order</button>
+    </div>
+</form>
+</div>
+<br>
+<div>
+  <label for="All Orders">Your All Orders</label>
+    
+    <div>
+    <table class="prediction-table">
+        <tr>
+          <td>Product ID</td>
+          <td>Product Name</td>
+          <td>Quantity</td>
+          <td>Status</td>
+        </tr>
+        <tr *ngFor="let order of allOrdersForUser">
+          <td>{{order.productid}}</td>
+          <td>{{order.productname}}</td>
+          <td>{{order.quantity}}</td>
+          <td *ngIf="order.status===false"><button  class="btn btn-primary" (click)="updateStatus(order)">Cancel Order</button></td>
+          <td *ngIf="order.status===true"><button  class="btn btn-success" disabled>Completed</button></td>
+          <!-- <td>{{order.status}}</td> -->
+        </tr>
+      </table>
+    </div>
+</div>

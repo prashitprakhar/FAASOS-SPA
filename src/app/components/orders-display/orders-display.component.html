@@ -1,0 +1,18 @@
+<div>
+  <table class="prediction-table">
+    <tr>
+      <td>Product ID</td>
+      <td>Product Name</td>
+      <td>Quantity</td>
+      <td>Status</td>
+    </tr>
+    <tr *ngFor="let order of allOrderDetails">
+      <td>{{order.productid}}</td>
+      <td>{{order.productname}}</td>
+      <td>{{order.quantity}}</td>
+      <td *ngIf="order.status===false"><button  class="btn btn-primary" (click)="updateStatus(order)">In Progress</button></td>
+      <td *ngIf="order.status===true"><button  class="btn btn-success" disabled>Completed</button></td>
+      <!-- <td>{{order.status}}</td> -->
+    </tr>
+  </table>
+</div>

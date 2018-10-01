@@ -1,0 +1,18 @@
+<form>
+<div class="form-group"> 
+  <label for="productName">Select Product: </label>
+  <select (change)="filterProducts($event.target.value)">
+      <option value="0">--All--</option>
+      <option *ngFor="let product of productName" value={{product}}>
+          {{product}}
+      </option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="predictedQuantity">Predicted Quantity</label>
+  <input type="text" class="form-control" id="predictedQuantity" name="predictedQuantity" [(ngModel)]="predictedQuantity" required>
+</div>
+<div class="form-group">
+  <button type="submit" clas="btn btn-success" (click)="sendPrediction()">Send Prediction</button>
+</div>
+</form>

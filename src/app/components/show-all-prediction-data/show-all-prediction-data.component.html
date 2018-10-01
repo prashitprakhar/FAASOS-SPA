@@ -1,0 +1,19 @@
+<div>
+  <table class="prediction-table">
+    <tr>
+      <td>Product ID</td>
+      <td>Product Name</td>
+      <td>Predicted quantity</td>
+    </tr>
+    <tr *ngFor="let product of allPredictionDetails">
+      <td>{{product.productid}}</td>
+      <td>{{product.productname}}</td>
+      <td>{{product.predictedquantity}}</td>
+    </tr>
+  </table>
+</div>
+<br>
+<div>
+  <button (click)="navigateToAllOrders()">Go to All Orders</button> &nbsp;
+  <button (click)="NavigateToCreatePrediction()">Create Prediction</button>
+</div>

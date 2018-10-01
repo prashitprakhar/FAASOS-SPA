@@ -1,0 +1,24 @@
+<div>
+    <table class="prediction-table">
+      <tr>
+        <td>Product ID</td>
+        <td>Product Name</td>
+        <td>Quantity</td>
+        <td>Created-till-now</td>
+        <td>Predicted</td>
+        <td>Status</td>
+      </tr>
+      <tr *ngFor="let order of updatedUniqueData">
+        <td>{{order.productId}}</td>
+        <td>{{order.productName}}</td>
+        <td>{{order.quantity > 0 ?  order.quantity : 'No orders currently' }}</td>
+        <td>{{order.createdTillNow}}</td>
+        <td>{{order.predictedQuantity ? order.predictedQuantity : 'No prediction Data' }}</td>
+        <td *ngIf="order.quantity > 0 && order.predictedQuantity" class="btn btn-primary" (click)="updateStatus(order)">Done</td>
+        <td *ngIf="!(order.quantity > 0 && order.predictedQuantity)" class="btn btn-primary" disabled>Done</td>
+        <!-- <td *ngIf="order.status===false"><button  class="btn btn-primary" (click)="updateStatus(order)">In Progress</button></td>
+        <td *ngIf="order.status===true"><button  class="btn btn-success" disabled>Completed</button></td> -->
+        <!-- <td>{{order.status}}</td> -->
+      </tr>
+    </table>
+  </div>

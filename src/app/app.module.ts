@@ -1,14 +1,63 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpModule, Http } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { OrdersDisplayComponent } from './components/orders-display/orders-display.component';
+import { PredictionsComponent } from './components/predictions/predictions.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
+import { ShowAllPredictionDataComponent } from './components/show-all-prediction-data/show-all-prediction-data.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { CreateOrderComponent } from './components/create-order/create-order.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    OrdersDisplayComponent,
+    PredictionsComponent,
+    HomepageComponent,
+    NotfoundpageComponent,
+    ShowAllPredictionDataComponent,
+    CreateOrderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpModule,
+    HttpClientModule,
+    FormsModule,
+    MatTableModule,
+    RouterModule.forRoot([
+      {
+        path : '',
+        component : HomepageComponent
+      },
+      {
+        path : 'createorder',
+        component : CreateOrderComponent
+      },
+      {
+        path : 'orders',
+        component : OrdersDisplayComponent
+      },
+      {
+        path : 'predictions',
+        component : PredictionsComponent
+      },
+      {
+        path : 'allPredictions',
+        component : ShowAllPredictionDataComponent
+      },
+      {
+        path : '**',
+        component : NotfoundpageComponent
+      }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]

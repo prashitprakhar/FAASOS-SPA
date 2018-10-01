@@ -1,0 +1,24 @@
+{
+    "Products": [
+        {
+            "productid": 101,
+            "productname": "Veg Biryani"
+        },
+        {
+            "productid": 201,
+            "productname": "Chicken Biryani"
+        },
+        {
+            "productid": 301,
+            "productname": "Mutton Biryani"
+        },
+        {
+            "productid": 401,
+            "productname": "Fried Rice"
+        },
+        {
+            "productid": 501,
+            "productname": "Plain Naan"
+        }
+    ]
+}
