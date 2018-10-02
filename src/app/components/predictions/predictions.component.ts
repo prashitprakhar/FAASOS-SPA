@@ -60,7 +60,7 @@ export class PredictionsComponent implements OnInit {
     }
   }
 
-  sendPrediction(roduct) {
+  sendPrediction() {
     //console.log("product",this.selectedProductObject)
     this.preparePayload();
     this.predictionsService.sendPrediction(this.predictionPayload, this.selectedProductObject);
