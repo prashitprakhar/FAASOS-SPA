@@ -37,14 +37,10 @@ export class OrdersService {
     return this._allProducts.asObservable();
   }
 
-  createOrders(payload) : Observable<any>{
-    this.httpRequestsService.postAPI(this.apiUrl + 'order', payload).subscribe(data => {
+  createOrders(payload, product_id): Observable<any> {
+    this.httpRequestsService.patchAPI(this.apiUrl + 'placeorder/' + product_id, payload).subscribe(data => {
       this._allPlacedOrders.next(data);
-      // if (data) {
-      //   this.router.navigate(['/yourAllOrders']);
-      // }
     });
-
     return this._allPlacedOrders.asObservable();
   }
 
@@ -63,10 +59,10 @@ export class OrdersService {
 
   updateOrderStatus(id: number) {
     return this.httpRequestsService.patchAPI(this.apiUrl + 'order/' + id, { "status": true })
-    //   .subscribe(data => {
-    //     this._allUpdatedOrderStatus.next(data);
-    //   })
-    // return this._allUpdatedOrderStatus.asObservable();
+  }
+
+  getAllData() {
+    return this.httpRequestsService.getAPI(this.apiUrl + 'alldata')
   }
 
 }

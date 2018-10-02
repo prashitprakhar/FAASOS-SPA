@@ -1,0 +1,61 @@
+<div>
+  <table class="prediction-table" *ngIf="!pdfDownload">
+    <tr class="prediction-tr">
+      <td class="prediction-tr">Product ID</td>
+      <td class="prediction-tr">Product Name</td>
+      <td class="prediction-tr">Quantity</td>
+      <td class="prediction-tr">Created-till-now</td>
+      <td class="prediction-tr">Predicted</td>
+      <td class="prediction-tr">Status</td>
+      <td class="prediction-tr">Ordered Time</td>
+      <td class="prediction-tr">Current Status</td>
+    </tr>
+    <tr class="prediction-tr" *ngFor="let order of finalDataArray">
+      <td class="prediction-tr">{{order.productId}}</td>
+      <td class="prediction-tr">{{order.productName}}</td>
+      <td class="prediction-tr">{{order.quantity > 0 ? order.quantity : ((!order.createdTillNow) ? 'No Orders received today...' : 'Order complete')
+        }}
+      </td>
+      <td class="prediction-tr">{{order.createdTillNow}}</td>
+      <td class="prediction-tr">{{order.predictedQuantity !== -1 ? order.predictedQuantity : 'No prediction Data' }}</td>
+      <td class="prediction-tr" *ngIf="order.quantity > 0 && order.predictedQuantity && !order.status" class="btn btn-primary"
+        (click)="updateStatus(order)">Done</td>
+      <td class="prediction-tr" *ngIf="!(order.quantity > 0 && order.predictedQuantity && !order.status)" class="btn btn-primary"
+        disabled>Done</td>
+      <td class="prediction-tr">{{ order.orderTimestamp }}</td>
+      <td class="prediction-tr" *ngIf="order.status" style="background-color:green;">{{ 'Completed' }}</td>
+      <td class="prediction-tr" *ngIf="!order.status && (order.quantity < 0) && !order.createdTillNow" style="background-color:blue;">{{ 'No Orders Today' }}</td>
+      <td class="prediction-tr" *ngIf="(!order.status && (order.quantity > 0))" style="background-color:yellow;">{{ 'In Progress' }}</td>
+    </tr>
+  </table>
+</div>
+<div id="content" #content>
+  <div class="alert alert-info">
+    <strong>Download as PDF</strong>
+  </div>
+  <div>
+    <input type="button" value="Download PDF" (click)="captureScreen()" />
+  </div>
+</div>
+
+<!-- for PDF Generation -->
+<div style="opacity: 0;">
+  <div class="pdf-download" id="contentToConvert">
+    <table class="downloadable-table">
+      <tr class="downloadable-tr">
+        <td class="downloadable-td">Dish Name</td>
+        <td class="downloadable-td">Produced</td>
+        <td class="downloadable-td">Predicted</td>
+        <!-- <td class="downloadable-td">Order Time</td>
+        <td class="downloadable-td">Status</td> -->
+      </tr>
+      <tr class="downloadable-table" *ngFor="let order of arrayUnique">
+        <td class="downloadable-td">{{order.productName}}</td>
+        <td class="downloadable-td">{{order.createdTillNow}}</td>
+        <td class="downloadable-td">{{order.predictedQuantity !== -1 ? order.predictedQuantity : 'No prediction Data' }}</td>
+        <!-- <td class="prediction-tr">{{order.orderTimestamp}}</td>
+        <td></td> -->
+      </tr>
+    </table>
+  </div>
+</div>

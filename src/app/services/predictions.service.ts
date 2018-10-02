@@ -30,7 +30,7 @@ export class PredictionsService {
     private router: Router) { }
 
   getAllProducts() {
-    this.httpRequestsService.getAPI('./../assets/all-products.json')
+    this.httpRequestsService.getAPI(this.apiUrl + '/alldata')
       .subscribe(data => {
         this._products = data;
         this._allProducts.next(data);
@@ -42,12 +42,12 @@ export class PredictionsService {
     return this._allProducts.asObservable();
   }
 
-  sendPrediction(payload) {
-    this.httpRequestsService.postAPI(this.apiUrl + 'prediction', payload).subscribe(data => {
+  sendPrediction(payload, objectid) {
+    this.httpRequestsService.patchAPI(this.apiUrl + 'createprediction/'+objectid, payload).subscribe(data => {
       this._allPredictions.next(data);
-      if (data) {
-        this.router.navigate(['/allPredictions']);
-      }
+      // if (data) {
+      //   this.router.navigate(['/allPredictions']);
+      // }
     });
   }
 
@@ -56,7 +56,7 @@ export class PredictionsService {
   }
 
   getAllPredictionsForTable(): Observable<any> {
-    this.httpRequestsService.getAPI(this.apiUrl+'allpredictions').subscribe(data => {
+    this.httpRequestsService.getAPI(this.apiUrl+'alldata').subscribe(data => {
       if(data) {
         this._allEntries.next(data);
       }

@@ -8,22 +8,26 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { OrdersDisplayComponent } from './components/orders-display/orders-display.component';
 import { PredictionsComponent } from './components/predictions/predictions.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
 import { NotfoundpageComponent } from './components/notfoundpage/notfoundpage.component';
 import { ShowAllPredictionDataComponent } from './components/show-all-prediction-data/show-all-prediction-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { CreateOrderComponent } from './components/create-order/create-order.component';
+import { AllDetailsComponent } from './components/all-details/all-details.component';
+import { SuccessPageComponent } from './components/success-page/success-page.component';
+import { FailurePageComponent } from './components/failure-page/failure-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdersDisplayComponent,
     PredictionsComponent,
-    HomepageComponent,
     NotfoundpageComponent,
     ShowAllPredictionDataComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    AllDetailsComponent,
+    SuccessPageComponent,
+    FailurePageComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,7 @@ import { CreateOrderComponent } from './components/create-order/create-order.com
     RouterModule.forRoot([
       {
         path : '',
-        component : HomepageComponent
+        component : AllDetailsComponent
       },
       {
         path : 'createorder',
@@ -52,6 +56,14 @@ import { CreateOrderComponent } from './components/create-order/create-order.com
       {
         path : 'allPredictions',
         component : ShowAllPredictionDataComponent
+      },
+      {
+        path : 'ordersuccess',
+        component : SuccessPageComponent
+      },
+      {
+        path : 'orderfailure',
+        component : FailurePageComponent
       },
       {
         path : '**',

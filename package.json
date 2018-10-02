@@ -22,7 +22,11 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@types/html2canvas": "0.0.34",
+    "@types/jspdf": "^1.1.31",
     "core-js": "^2.5.4",
+    "html2canvas": "^1.0.0-alpha.12",
+    "jspdf": "^1.4.1",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

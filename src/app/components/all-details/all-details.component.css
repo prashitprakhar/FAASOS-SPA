@@ -1,0 +1,35 @@
+.prediction-table{
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+ }
+.prediction-tr {
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+}
+.prediction-td { 
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+}
+
+ .downloadable-table { 
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+ }
+
+ .downloadable-td {
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+ }
+
+ .downloadable-tr { 
+    border: 2px solid black;
+    padding: 2px;
+    text-align: center;
+ }
+
+ 

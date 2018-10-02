@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PredictionsService } from './../../services/predictions.service';
 
 interface PredictionsPayload  {
-  productid : number,
-  productname : string,
-  predictedquantity : number
+  prediction : {
+    predictedquantity : number
+  }
 }
 
 @Component({
@@ -21,25 +21,23 @@ export class PredictionsComponent implements OnInit {
   public allProducts: any;
   public productID: any = [];
   public productName: any = [];
+  public productObjectID : any = []
 
   public selectedProductName: string;
   public selectedProduct: any;
   public predictedQuantity: number;
+  public selectedProductObject: any ;
 
   public predictionPayload : PredictionsPayload = {
-    productid : 0,
-    productname : '',
-    predictedquantity : 0
+    prediction : {
+      predictedquantity : 0
+    }
   }
 
   constructor(private predictionsService : PredictionsService) { 
     this.predictionsService.subscribeProducts().subscribe(data => {
-      this.allProducts = data.Products;
-      if(this.allProducts){
-        this.allProducts.map(data => {
-          this.productID.push(data.productid);
-          this.productName.push(data.productname);
-        })
+      if(data.length > 0){
+        this.allProducts = data;
       }
     });
   }
@@ -49,7 +47,6 @@ export class PredictionsComponent implements OnInit {
 
   filterProducts(selectedProductName: any) {
     this.selectedProductName = selectedProductName;
-    //console.log("filterValue : ",filterValue)
   }
 
   preparePayload(){
@@ -57,15 +54,16 @@ export class PredictionsComponent implements OnInit {
       return this.selectedProductName === data.productname
     });
     this.predictionPayload = {
-      productid : this.selectedProduct[0].productid,
-      productname : this.selectedProductName,
-      predictedquantity : this.predictedQuantity
+      prediction : {
+        predictedquantity : this.predictedQuantity
+      }
     }
   }
 
-  sendPrediction() {
+  sendPrediction(roduct) {
+    //console.log("product",this.selectedProductObject)
     this.preparePayload();
-    this.predictionsService.sendPrediction(this.predictionPayload);
+    this.predictionsService.sendPrediction(this.predictionPayload, this.selectedProductObject);
   }
 
 }

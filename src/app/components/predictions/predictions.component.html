@@ -1,10 +1,10 @@
 <form>
 <div class="form-group"> 
   <label for="productName">Select Product: </label>
-  <select (change)="filterProducts($event.target.value)">
+  <select name="selectedProductObject" id="selectedProductObject" [(ngModel)]="selectedProductObject">
       <option value="0">--All--</option>
-      <option *ngFor="let product of productName" value={{product}}>
-          {{product}}
+      <option *ngFor="let product of allProducts" value={{product.prediction[0]._id}} >
+          {{product.productname}}
       </option>
   </select>
 </div>

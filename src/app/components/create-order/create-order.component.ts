@@ -1,14 +1,16 @@
 import { Component, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { OrdersService } from './../../services/orders.service';
 import { Observable, interval } from './../../../../node_modules/rxjs';
+import { Router } from '@angular/router';
 //import 'rxjs/add/observable/interval';
 //import 'rxjs/Rx'
 
 
 interface OrdersPayload  {
-  productid : number,
-  productname : string,
-  quantity : number
+  order : {
+    username : string,
+    orderedamount : number
+  }
 }
 
 @Component({
@@ -26,20 +28,23 @@ export class CreateOrderComponent implements OnInit, DoCheck {
   public selectedProductName: string;
   public selectedProduct: any;
   public orderedQuantity: number;
+  public username: string;
 
   public orderPayload : OrdersPayload = {
-    productid : 0,
-    productname : '',
-    quantity : 0
+    order : {
+      username : '',
+      orderedamount : 0
+    }
   }
 
   public allOrdersForUser : any = [];
   public allOrderDetails: any = [];
 
   public sub : Observable<any>
+  public successFlag : boolean;
   //private publicIp = require('public-ip');
 
-  constructor(private ordersService : OrdersService) { 
+  constructor(private ordersService : OrdersService, private router : Router) { 
     this.ordersService.subscribeAllProducts().subscribe(data => {
       this.allProducts = data.Products;
       if(this.allProducts){
@@ -52,24 +57,10 @@ export class CreateOrderComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() { 
-    // Observable.interval(2000 * 60).subscribe(x => {
-    //   doSomething();
-    // });
     new Observable(observer => {
       setInterval(() => { this.getAllOrders() }, 1000)
     })
-      
-    //);
-    // let obs = Rx.Observable
-    //             .interval(3000)
-    this.getAllOrders()
-    // setInterval( function() { 
-    //   console.log("triggered...")
-    //   this.ordersService.getAllOrders().subscribe(orders => {
-    //   Object.keys(orders).map(key => {
-    //     this.allOrdersForUser.push(orders[key]);
-    //   });
-    // }) }, 5000);
+    //this.getAllOrders()
   }
 
   ngDoCheck() {
@@ -77,7 +68,6 @@ export class CreateOrderComponent implements OnInit, DoCheck {
   }
 
   getAllOrders() {
-    console.log("triggered")
     this.allOrdersForUser = []
     this.ordersService.getAllOrders().subscribe(orders => {
       this.allOrdersForUser = [];
@@ -100,18 +90,24 @@ export class CreateOrderComponent implements OnInit, DoCheck {
       return this.selectedProductName === data.productname
     });
     this.orderPayload = {
-      productid : this.selectedProduct[0].productid,
-      productname : this.selectedProductName,
-      quantity : this.orderedQuantity
+      order : {
+        username : this.username,
+        orderedamount : this.orderedQuantity
+      }
     }
   }
 
   createOrder() {
     this.preparePayload();
     this.allOrdersForUser = []
-    this.ordersService.createOrders(this.orderPayload).subscribe(orderDetails => {
+    this.ordersService.createOrders(this.orderPayload, this.selectedProduct[0].objectid).subscribe(orderDetails => {
+      if(orderDetails) {
+        this.router.navigate(['/ordersuccess'])
+      } else {
+        this.router.navigate(['/orderfailure'])
+      }
       //this.allOrdersForUser = orderDetails;
-      this.allOrdersForUser = []
+      this.allOrdersForUser = [];
       Object.keys(orderDetails).map(key => {
         this.allOrdersForUser.push(orderDetails[key]);
       });

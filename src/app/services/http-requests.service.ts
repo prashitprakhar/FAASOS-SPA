@@ -43,6 +43,7 @@ export class HttpRequestsService {
   }
 
   private appendParams(url, params: any = {}) : any{
+    console.log("params from append",params)
     const qsEncoded = Object.keys(params).map(p => `${p}=${params[p]}`).join('&');
     return `${url}?${qsEncoded}`;
   }
